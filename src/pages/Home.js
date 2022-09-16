@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TextInput,
   Platform,
+  FlatList
 } from "react-native";
 
 import { Button } from "../components/Button";
@@ -32,17 +33,29 @@ export function Home() {
         value={newSkill}
       />
 
-      <Button />
+      <Button onPress={handleAddNewSkill} />
 
       <Text style={[styles.title, { marginVertical: 50 }]}>
         Minhas Habilidades
       </Text>
 
-      {
-        mySkills.map(skill => (
-          <SkillCard />
-        ))
-      }
+
+      <FlatList
+        data={mySkills}
+        keyExtractor={item => item}
+        renderItem={({ item }) => (
+          <SkillCard
+            key={item}
+            skill={item}
+          />
+        )}
+        showsVerticalScrollIndicator={false}
+        ListEmptyComponent={() => (
+          <Text>
+            Nenhuma habilidade armazenada
+          </Text>
+        )}
+      />
 
     </View >
   );

@@ -6,7 +6,7 @@ import {
   TouchableOpacity
 } from "react-native";
 
-export function SkillCard() {
+export function SkillCard({ skill }) {
 
   return (
 
@@ -15,7 +15,7 @@ export function SkillCard() {
       activeOpacity={.7}
     >
       <Text style={styles.textSkill}>
-        {'skill'}
+        {skill}
       </Text>
     </TouchableOpacity>
   );

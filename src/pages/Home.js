@@ -5,12 +5,14 @@ import {
   StyleSheet,
   TextInput,
   Platform,
-  TouchableOpacity
 } from "react-native";
+
+import { Button } from "../components/Button";
+import { SkillCard } from "../components/SkillCard";
 
 export function Home() {
   const [newSkill, setNewSkill] = useState();
-  const [mySkills, setMySkills] = useState([]);
+  const [mySkills, setMySkills] = useState(['vander']);
 
   function handleAddNewSkill() {
     setMySkills(prevState => [...prevState, newSkill]);
@@ -30,13 +32,7 @@ export function Home() {
         value={newSkill}
       />
 
-      <TouchableOpacity
-        style={styles.button}
-        activeOpacity={.7}
-        onPress={handleAddNewSkill}
-      >
-        <Text style={styles.buttonText}>Adicionar</Text>
-      </TouchableOpacity>
+      <Button />
 
       <Text style={[styles.title, { marginVertical: 50 }]}>
         Minhas Habilidades
@@ -44,15 +40,7 @@ export function Home() {
 
       {
         mySkills.map(skill => (
-          <TouchableOpacity
-            key={skill}
-            style={styles.buttonSkill}
-            activeOpacity={.7}
-          >
-            <Text style={styles.textSkill}>
-              {skill}
-            </Text>
-          </TouchableOpacity>
+          <SkillCard />
         ))
       }
 

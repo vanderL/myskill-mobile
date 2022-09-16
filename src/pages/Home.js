@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -13,17 +13,35 @@ import { SkillCard } from "../components/SkillCard";
 
 export function Home() {
   const [newSkill, setNewSkill] = useState();
-  const [mySkills, setMySkills] = useState(['vander']);
+  const [mySkills, setMySkills] = useState([]);
+  const [gretting, setGretting] = useState('');
 
   function handleAddNewSkill() {
     setMySkills(prevState => [...prevState, newSkill]);
     setNewSkill('');
   }
 
+  useEffect(() => {
+    const currentHour = new Date().getHours();
+
+    if (currentHour < 12) {
+      setGretting('Good Morning')
+    } else if (currentHour >= 12 && currentHour < 18) {
+      setGretting('Good Aftnernoon')
+    } else {
+      setGretting('Good night')
+    }
+  }, [])
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>
-        Welcome Vander
+        Welcome, Vander
+      </Text>
+      <Text
+        style={styles.greetings}
+      >
+        {gretting}
       </Text>
       <TextInput
         style={styles.input}
@@ -36,7 +54,7 @@ export function Home() {
       <Button onPress={handleAddNewSkill} />
 
       <Text style={[styles.title, { marginVertical: 50 }]}>
-        Minhas Habilidades
+        My Skills
       </Text>
 
 
@@ -51,8 +69,9 @@ export function Home() {
         )}
         showsVerticalScrollIndicator={false}
         ListEmptyComponent={() => (
-          <Text>
-            Nenhuma habilidade armazenada
+          <Text style={styles.input}
+          >
+            No additional skills.
           </Text>
         )}
       />
@@ -102,5 +121,8 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 22,
     fontWeight: 'bold'
+  },
+  greetings: {
+    color: '#fff',
   }
 })
